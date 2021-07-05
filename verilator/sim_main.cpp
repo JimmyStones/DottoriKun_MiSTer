@@ -76,7 +76,7 @@ double sc_time_stamp() {	// Called by $time in Verilog.
 
 int clockSpeed = 8; // This is not used, just a reminder for the dividers below
 SimClock clk_sys(1); // 4mhz
-SimClock clk_pix(1); // 4mhz
+SimClock clk_pix(0); // 4mhz
 
 void resetSim() {
 	main_time = 0;
@@ -141,7 +141,7 @@ int main(int argc, char** argv, char** env) {
 
 #ifdef WIN32
 	// Attach debug console to the verilated code
-	Verilated::setDebug(&console);
+	Verilated::setDebug(console);
 #endif
 
 	// Attach bus
@@ -182,7 +182,8 @@ int main(int argc, char** argv, char** env) {
 	resetSim();
 
 	// Stage roms for this core
-	bus.QueueDownload("roms/dotriman/14479a.mpr", 0);
+	//bus.QueueDownload("roms/dotriman/14479a.mpr", 0);
+	bus.QueueDownload("roms/14479a.mpr", 0);
 	//bus.QueueDownload("roms/14479a.103", 0);
 
 
@@ -248,11 +249,11 @@ int main(int argc, char** argv, char** env) {
 		ImGui::End();
 
 		ImGui::Begin("RAM");
-		memoryEditor_hs.DrawContents(top->top__DOT__dottori__DOT__MEM_RAM__DOT__ram, 4096, 0);
+		memoryEditor_hs.DrawContents(&top->top__DOT__dottori__DOT__MEM_RAM__DOT__ram, 4096, 0);
 		ImGui::End();
 
 		ImGui::Begin("ROM");
-		memoryEditor_hs.DrawContents(top->top__DOT__dottori__DOT__MEM_ROM__DOT__ram, 4096, 0);
+		memoryEditor_hs.DrawContents(&top->top__DOT__dottori__DOT__MEM_ROM__DOT__ram, 4096, 0);
 		ImGui::End();
 
 		video.UpdateTexture();

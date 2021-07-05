@@ -35,10 +35,7 @@ module top(
    assign VGA_R = {8{RED}};
    assign VGA_G = {8{GREEN}};
    assign VGA_B = {8{BLUE}};
-
-   //assign VGA_HB = VGA_HS;
-   //assign VGA_VB = VGA_VS;
-
+   
    wire btn_start = inputs[6];
    wire btn_coin = inputs[8];
    wire m_bomb = inputs[5];
